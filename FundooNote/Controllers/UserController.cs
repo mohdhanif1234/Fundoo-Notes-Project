@@ -1,7 +1,6 @@
 ﻿using FundooManager.Interface;
 using FundooModel;
 using Microsoft.AspNetCore.Mvc;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
