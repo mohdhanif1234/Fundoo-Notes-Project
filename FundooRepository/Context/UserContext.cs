@@ -11,6 +11,7 @@ namespace FundooRepository.Context
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
         }
-        public DbSet<RegisterModel> Users { get; set; }
+        public DbSet<RegisterModel> User { get; set; }
+        
     }
 }

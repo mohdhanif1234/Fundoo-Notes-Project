@@ -8,7 +8,7 @@ namespace FundooModel
     public class RegisterModel
     {
         [Required]
-        [RegularExpression(" ", ErrorMessage = "E-mail is not valid. Please Enter valid email")]
+        //[RegularExpression(" ", ErrorMessage = "E-mail is not valid. Please Enter valid email")]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
@@ -16,6 +16,7 @@ namespace FundooModel
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
+        [Key]
         public int UserId { get; set; }
     }
 }
