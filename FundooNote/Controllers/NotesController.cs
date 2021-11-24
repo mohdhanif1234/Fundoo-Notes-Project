@@ -19,12 +19,33 @@ namespace FundooNote.Controllers
         }
         [HttpPost]
         [Route("api/addnote")]
-        public IActionResult Notes([FromBody] NotesModel notesModel)
+        public IActionResult MakeANote([FromBody] NotesModel notesModel)
         {
             try
             {
                 string result = this.notesManager.MakeANote(notesModel);
-                if (result == "Note is added successfully")
+                if (result == "New note created successfully")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("api/editnote")]
+        public IActionResult EditNote([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.EditNote(notesModel);
+                if (result.Equals("Note is updated successfully"))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }

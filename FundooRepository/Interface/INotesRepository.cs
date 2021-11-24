@@ -5,5 +5,6 @@ namespace FundooRepository.Interface
     public interface INotesRepository
     {
         string MakeANote(NotesModel notesModel);
+        string EditNote(NotesModel notesModel);
     }
 }

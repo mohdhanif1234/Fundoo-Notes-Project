@@ -4,6 +4,7 @@ using FundooRepository.Interface;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FundooRepository.Repository
@@ -27,11 +28,11 @@ namespace FundooRepository.Repository
                     this.userContext.Notes.Add(notesModel);
                     // Saving the changes in the database
                     this.userContext.SaveChanges();
-                    return "Note is added successfully";
+                    return "New note created successfully";
                 }
                 else
                 {
-                    return "Note addition is unsuccesful";
+                    return "Note creation is unsuccesful";
                 }
             }
             catch (ArgumentNullException ex)
@@ -39,5 +40,36 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string EditNote(NotesModel notesModel)
+        {
+            try
+            {
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesModel.NoteId).FirstOrDefault();
+                if (validNoteId != null)
+                {
+                    if (notesModel != null)
+                    {
+                        validNoteId.Title = notesModel.Title; 
+                        validNoteId.TakeANote = notesModel.TakeANote;
+                        this.userContext.Notes.Update(validNoteId);
+                        this.userContext.SaveChanges();
+                        return "Note is updated successfully";
+                    }
+                    else
+                    {
+                        return "Note update is unsuccessful";
+                    }
+                }
+                else
+                {
+                    return "This note does not exist. Kindly create a new one";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
