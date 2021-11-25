@@ -1,6 +1,7 @@
 ﻿using FundooManager.Interface;
 using FundooModel;
 using Microsoft.AspNetCore.Mvc;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace FundooNote.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
-        [HttpGet]
+        [HttpPost]
         [Route("api/login")]
         public IActionResult LogIn([FromBody] LoginModel login)
         {
@@ -48,7 +49,18 @@ namespace FundooNote.Controllers
 
                 if (result.Equals("Login Successful"))
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                    ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    IDatabase database = connectionMultiplexer.GetDatabase();
+                    string firstName = database.StringGet("First Name");
+                    string lastName = database.StringGet("Last Name");
+                    RegisterModel data = new RegisterModel
+                    {
+                        FirstName = firstName,
+                        LastName = lastName,
+                        Email = login.Email
+                    };
+                    string jwt = this.manager.JWTGenerator(login.Email);
+                    return this.Ok(new { Status = true, Message = result, Token = jwt });
                 }
                 else
                 {

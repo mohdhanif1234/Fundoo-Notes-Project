@@ -8,5 +8,6 @@ namespace FundooManager.Interface
         string LogIn(LoginModel login);
         string ResetPassword(ResetPasswordModel userData);
         string ForgottenPassword(string email);
+        string JWTGenerator(string email);
     }
 }

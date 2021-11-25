@@ -61,5 +61,16 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string JWTGenerator(string email)
+        {
+            try
+            {
+                return this.repository.JWTGenerator(email);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FundooNote.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class NotesController : ControllerBase
     {
         private readonly INotesManager notesManager;
