@@ -1,6 +1,7 @@
 ﻿using FundooManager.Interface;
 using FundooManager.Manager;
 using FundooModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FundooNote.Controllers
 {
+    //[Authorize]
     public class NotesController : ControllerBase
     {
         private readonly INotesManager notesManager;
@@ -52,6 +54,69 @@ namespace FundooNote.Controllers
                 else
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("api/changecolor")]
+        public IActionResult EditColor(int noteId, string noteColor)
+        {
+            try
+            {
+                string result = this.notesManager.EditColor(noteId,noteColor);
+                if (result.Equals("Color is updated successfully"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("api/archivenote")]
+        public IActionResult ArchiveNote(int noteId)
+        {
+            try
+            {
+                string result = this.notesManager.ArchiveNote(noteId);
+                if (result.Equals("This note does not exist.Kindly create a new one"))
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+                else
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("api/pinnote")]
+        public IActionResult NoteAddtionAsPinned(int notesId)
+        {
+            try
+            {
+                string result = this.notesManager.NoteAddtionAsPinned(notesId);
+                if (result.Equals("This note does not exist. Kindly create a new one"))
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+                else
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
             }
             catch (Exception ex)

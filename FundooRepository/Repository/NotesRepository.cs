@@ -70,6 +70,113 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string EditColor(int noteId, string noteColor)
+        {
+            try
+            {
+                var validNote = this.userContext.Notes.Where(x => x.NoteId == noteId).FirstOrDefault();
+                if (validNote != null)
+                {
+                    if(noteColor != null)
+                    {
+                        validNote.Colour = noteColor;
+                        this.userContext.Notes.Update(validNote);
+                        this.userContext.SaveChanges();
+                        return "Color is updated successfully";
+                    }
+                    else
+                    {
+                        return "Color update is unsuccessful";
+                    }
+                }
+                else
+                {
+                    return "This note does not exist. Kindly create a new one";
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string ArchiveNote(int noteId)
+        {
+            try
+            {
+                string msg;
+                var validNote = this.userContext.Notes.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (validNote != null) 
+                {
+                    if (validNote.IsArchive == false)
+                    {
+                        validNote.IsArchive = true; 
+                        if (validNote.IsNotePinned == true) 
+                        {
+                            validNote.IsNotePinned = false;
+                            msg = "The note is unpinned and archived successfully";
+                        }
+                        else
+                        {
 
+                            msg = "The note was initially not pinned but now it is archived successfully";
+                        }
+                    }
+                    else
+                    {
+                        validNote.IsArchive = false;
+                        msg = "Note archived successfully";
+                    }
+                    this.userContext.Notes.Update(validNote);
+                    this.userContext.SaveChanges();
+                }
+                else
+                {
+                    msg = "This note does not exist. Kindly create a new one";
+                }
+                return msg;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string NoteAddtionAsPinned(int notesId)
+        {
+            try
+            {
+                string msg;
+                var valiNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).SingleOrDefault();
+                if (valiNoteId != null)
+                {
+                    if (valiNoteId.IsNotePinned == false)
+                    {
+                        valiNoteId.IsNotePinned = true;
+                        if (valiNoteId.IsNotePinned == true) 
+                        {
+                            valiNoteId.IsArchive = false;
+                            msg = "Note unarchived and pinned successfully";
+                        }
+                        else
+                            msg = "Note pinned successfully";
+                    }
+                    else
+                    {
+                        valiNoteId.IsNotePinned = false;
+                        msg = "Note unpinned successfully";
+                    }
+                    this.userContext.Notes.Update(valiNoteId);
+                    this.userContext.SaveChanges();
+                }
+                else
+                {
+                    msg = "This note does not exist. Kindly create a new one";
+                }
+                return msg;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -38,5 +38,39 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string EditColor(int noteId, string noteColor)
+        {
+            try
+            {
+                return this.notesRepository.EditColor(noteId, noteColor);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string ArchiveNote(int noteId)
+        {
+            try
+            {
+                return this.notesRepository.ArchiveNote(noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string NoteAddtionAsPinned(int notesId)
+        {
+            try
+            {
+                return this.notesRepository.NoteAddtionAsPinned(notesId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
+
