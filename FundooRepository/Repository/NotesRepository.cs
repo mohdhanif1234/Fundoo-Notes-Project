@@ -77,22 +77,12 @@ namespace FundooRepository.Repository
                 var validNote = this.userContext.Notes.Where(x => x.NoteId == noteId).FirstOrDefault();
                 if (validNote != null)
                 {
-                    if(noteColor != null)
-                    {
-                        validNote.Colour = noteColor;
-                        this.userContext.Notes.Update(validNote);
-                        this.userContext.SaveChanges();
-                        return "Color is updated successfully";
-                    }
-                    else
-                    {
-                        return "Color update is unsuccessful";
-                    }
+                    validNote.Colour = noteColor;
+                    this.userContext.Notes.Update(validNote);
+                    this.userContext.SaveChanges();
+                    return "Color is updated successfully";
                 }
-                else
-                {
-                    return "This note does not exist. Kindly create a new one";
-                }
+                return "Color update is unsuccessful";
             }
             catch (ArgumentNullException ex)
             {
@@ -124,7 +114,7 @@ namespace FundooRepository.Repository
                     else
                     {
                         validNote.IsArchive = false;
-                        msg = "Note archived successfully";
+                        msg = "Note unarchived successfully";
                     }
                     this.userContext.Notes.Update(validNote);
                     this.userContext.SaveChanges();

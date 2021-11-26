@@ -18,10 +18,12 @@ namespace FundooRepository.Repository
     public class UserRepository : IUserRepository
     {
         private readonly UserContext userContext;
+        //private readonly HttpContext context;
         public UserRepository(IConfiguration configuration, UserContext userContext)
         {
             this.Configuration = configuration;
             this.userContext = userContext;
+            //this.context = context;
         }
 
         public IConfiguration Configuration { get; }

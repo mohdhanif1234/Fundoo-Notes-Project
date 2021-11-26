@@ -1,4 +1,10 @@
-﻿using FundooManager.Interface;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohammad Hanif"/>
+// ----------------------------------------------------------------------------------------------------------
+using FundooManager.Interface;
 using FundooModel;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
@@ -57,7 +63,8 @@ namespace FundooNote.Controllers
                     {
                         FirstName = firstName,
                         LastName = lastName,
-                        Email = login.Email
+                        Email = login.Email,
+
                     };
                     string jwt = this.manager.JWTGenerator(login.Email);
                     return this.Ok(new { Status = true, Message = result, Token = jwt });
