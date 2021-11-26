@@ -105,12 +105,13 @@ namespace FundooRepository.Repository
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-                mail.From = new MailAddress("mohd.haniftopia@gmail.com");
+                mail.From = new MailAddress(this.Configuration["Credentials:testEmailId"]);
                 mail.To.Add(email);
                 mail.Subject = "Test Mail";
-                mail.Body = "This is for testing SMTP mail from Gmail";
+                SendMSMQ();
+                mail.Body = ReceiveMSMQ();
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("mohd.haniftopia@gmail.com", "agfs1w2.jgihgi");
+                SmtpServer.Credentials = new System.Net.NetworkCredential(this.Configuration["Credentials:testEmailId"], this.Configuration["Credentials:testEmailPassword"]);
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
                 return "Email is sent sucessfully";
@@ -119,6 +120,27 @@ namespace FundooRepository.Repository
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public void SendMSMQ()
+        {
+            MessageQueue messageQueue;
+            if (MessageQueue.Exists(@".\Private$\Fundoo"))
+            {
+                messageQueue = new MessageQueue(@".\Private$\Fundoo");
+            }
+            else
+            {
+                messageQueue = MessageQueue.Create(@".\Private$\Fundoo");
+            }
+            string body = "This is for Testing SMTP mail from GMAIL";
+            messageQueue.Label = "Mail Body";
+            messageQueue.Send(body);
+        }
+        public string ReceiveMSMQ()
+        {
+            MessageQueue messageQueue = new MessageQueue(@".\Private$\Fundoo");
+            var receivemsg = messageQueue.Receive();
+            return receivemsg.ToString();
         }
         public string JWTGenerator(string email)
         {
