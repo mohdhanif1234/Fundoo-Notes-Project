@@ -1,4 +1,5 @@
 ﻿using FundooModel;
+using System.Collections.Generic;
 
 namespace FundooManager.Interface
 {
@@ -6,5 +7,6 @@ namespace FundooManager.Interface
     {
         string AddCollaborator(CollaboratorModel collaboratorData);
         string DeleteCollaborator(int collaboratorId);
+        List<CollaboratorModel> GetCollaboratorDetails(int noteId);
     }
 }
