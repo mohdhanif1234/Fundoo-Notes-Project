@@ -2,6 +2,7 @@
 using FundooManager.Manager;
 using FundooModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FundooNote.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class NotesController : ControllerBase
     {
         private readonly INotesManager notesManager;
@@ -122,6 +123,29 @@ namespace FundooNote.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("api/addimage")]
+        public IActionResult AddImage(int noteId, IFormFile imagePath)
+        {
+            try
+            {
+                string result = this.notesManager.AddImage(noteId, imagePath);
+                if (result.Equals("Image uploaded successfully"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = true, Message = ex.Message });
             }
         }
     }

@@ -1,6 +1,9 @@
-﻿using FundooModel;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using FundooModel;
 using FundooRepository.Context;
 using FundooRepository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -164,6 +167,39 @@ namespace FundooRepository.Repository
                 return msg;
             }
             catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string AddImage(int noteId, IFormFile imagePath)
+        {
+            try
+            {
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (validNoteId != null)
+                {
+                    var cloudinary = new Cloudinary(
+                                                new Account(
+                                                "dywtukryq",
+                                                "987334161811286",
+                                                "zfn7KQREVjDdGm8a1EYcufd4DcQ"));
+
+                    var uploadImage = new ImageUploadParams()
+                    {
+                        File = new FileDescription(imagePath.FileName, imagePath.OpenReadStream())
+                    };
+                    var uploadResult = cloudinary.Upload(uploadImage);
+                    var uploadPath = uploadResult.Url;
+                    validNoteId.Image = uploadPath.ToString();
+                    this.userContext.SaveChanges();
+                    return "Image uploaded successfully";
+                }
+                else
+                {
+                    return "Note does not Exist";
+                }
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

@@ -2,6 +2,7 @@
 using FundooModel;
 using FundooRepository.Interface;
 using FundooRepository.Repository;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -65,6 +66,17 @@ namespace FundooManager.Manager
             try
             {
                 return this.notesRepository.NoteAddtionAsPinned(notesId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string AddImage(int noteId, IFormFile imagePath)
+        {
+            try
+            {
+                return this.notesRepository.AddImage(noteId, imagePath);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using FundooModel;
+using Microsoft.AspNetCore.Http;
 
 namespace FundooRepository.Interface
 {
@@ -9,6 +10,7 @@ namespace FundooRepository.Interface
         string EditColor(int noteId, string color);
         string ArchiveNote(int noteId);
         string NoteAddtionAsPinned(int notesId);
+        string AddImage(int noteId, IFormFile imagePath);
 
     }
 }
