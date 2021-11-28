@@ -14,5 +14,6 @@ namespace FundooManager.Interface
         string AddImage(int noteId, IFormFile imagePath);
 
         string DeleteANote(int notesId);
+        string RetrieveNoteFromTrash(int notesId);
     }
 }
