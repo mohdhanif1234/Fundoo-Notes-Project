@@ -10,6 +10,10 @@ namespace FundooManager.Interface
         string EditColor(int noteId, string color);
         string ArchiveNote(int noteId);
         string NoteAddtionAsPinned(int notesId);
+<<<<<<< HEAD
         string AddImage(int noteId, IFormFile imagePath);
+=======
+        string DeleteANote(int notesId);
+>>>>>>> Notes
     }
 }
