@@ -145,7 +145,7 @@ namespace FundooRepository.Repository
             try
             {
                 string msg;
-                var valiNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).SingleOrDefault();
+                var valiNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
                 if (valiNoteId != null)
                 {
                     if (valiNoteId.IsNotePinned == false)
@@ -178,5 +178,33 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string DeleteANote(int notesId)
+        {
+            try
+            {
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
+                if (validNoteId != null)
+                {
+                    validNoteId.IsTrash = true; 
+                    if (validNoteId.IsNotePinned == true)
+                    {
+                        validNoteId.IsNotePinned = false;
+                        this.userContext.Notes.Update(validNoteId);
+                        this.userContext.SaveChanges();
+                        return "Note unpinned and trashed sucessfully";
+                    }
+                    return "Note trashed successfully";
+                }
+                else
+                {
+                    return "This note does not exist. Kindly create a new one";
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

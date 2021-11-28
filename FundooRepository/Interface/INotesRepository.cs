@@ -9,6 +9,7 @@ namespace FundooRepository.Interface
         string EditColor(int noteId, string color);
         string ArchiveNote(int noteId);
         string NoteAddtionAsPinned(int notesId);
+        string DeleteANote(int notesId);
 
     }
 }
