@@ -72,29 +72,28 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
-<<<<<<< HEAD
         public string AddImage(int noteId, IFormFile imagePath)
         {
             try
             {
                 return this.notesRepository.AddImage(noteId, imagePath);
-=======
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }     
+        }
         public string DeleteANote(int notesId)
         {
             try
             {
                 return this.notesRepository.DeleteANote(notesId);
->>>>>>> Notes
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> Notes
     }
 }
-
+ 

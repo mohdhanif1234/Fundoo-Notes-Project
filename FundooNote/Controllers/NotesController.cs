@@ -68,7 +68,7 @@ namespace FundooNote.Controllers
         {
             try
             {
-                string result = this.notesManager.EditColor(noteId,noteColor);
+                string result = this.notesManager.EditColor(noteId, noteColor);
                 if (result.Equals("Color is updated successfully"))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -126,7 +126,6 @@ namespace FundooNote.Controllers
             }
         }
         [HttpPut]
-<<<<<<< HEAD
         [Route("api/addimage")]
         public IActionResult AddImage(int noteId, IFormFile imagePath)
         {
@@ -149,7 +148,7 @@ namespace FundooNote.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = true, Message = ex.Message });
             }
         }
-=======
+
         [Route("api/deleteanote")]
         public IActionResult DeleteANote(int notesId)
         {
@@ -170,7 +169,5 @@ namespace FundooNote.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
-
->>>>>>> Notes
     }
 }

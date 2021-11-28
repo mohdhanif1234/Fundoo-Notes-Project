@@ -52,7 +52,7 @@ namespace FundooRepository.Repository
                 {
                     if (notesModel != null)
                     {
-                        validNoteId.Title = notesModel.Title; 
+                        validNoteId.Title = notesModel.Title;
                         validNoteId.TakeANote = notesModel.TakeANote;
                         this.userContext.Notes.Update(validNoteId);
                         this.userContext.SaveChanges();
@@ -98,12 +98,12 @@ namespace FundooRepository.Repository
             {
                 string msg;
                 var validNote = this.userContext.Notes.Where(x => x.NoteId == noteId).SingleOrDefault();
-                if (validNote != null) 
+                if (validNote != null)
                 {
                     if (validNote.IsArchive == false)
                     {
-                        validNote.IsArchive = true; 
-                        if (validNote.IsNotePinned == true) 
+                        validNote.IsArchive = true;
+                        if (validNote.IsNotePinned == true)
                         {
                             validNote.IsNotePinned = false;
                             msg = "The note is unpinned and archived successfully";
@@ -144,7 +144,7 @@ namespace FundooRepository.Repository
                     if (valiNoteId.IsNotePinned == false)
                     {
                         valiNoteId.IsNotePinned = true;
-                        if (valiNoteId.IsNotePinned == true) 
+                        if (valiNoteId.IsNotePinned == true)
                         {
                             valiNoteId.IsArchive = false;
                             msg = "Note unarchived and pinned successfully";
@@ -171,7 +171,7 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
-<<<<<<< HEAD
+
         public string AddImage(int noteId, IFormFile imagePath)
         {
             try
@@ -201,38 +201,38 @@ namespace FundooRepository.Repository
                 }
             }
             catch (Exception ex)
-=======
-        public string DeleteANote(int notesId)
-        {
-            try
-            {
-                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
-                if (validNoteId != null)
-                {
-                    validNoteId.IsTrash = true; 
-                    if (validNoteId.IsNotePinned == true)
-                    {
-                        validNoteId.IsNotePinned = false;
-                        this.userContext.Notes.Update(validNoteId);
-                        this.userContext.SaveChanges();
-                        return "Note unpinned and trashed sucessfully";
-                    }
-                    return "Note trashed successfully";
-                }
-                else
-                {
-                    return "This note does not exist. Kindly create a new one";
-                }
-            }
-            catch (ArgumentNullException ex)
->>>>>>> Notes
             {
                 throw new Exception(ex.Message);
             }
         }
-<<<<<<< HEAD
-=======
+            public string DeleteANote(int notesId)
+            {
+                try
+                {
+                    var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
+                    if (validNoteId != null)
+                    {
+                        validNoteId.IsTrash = true;
+                        if (validNoteId.IsNotePinned == true)
+                        {
+                            validNoteId.IsNotePinned = false;
+                            this.userContext.Notes.Update(validNoteId);
+                            this.userContext.SaveChanges();
+                            return "Note unpinned and trashed sucessfully";
+                        }
+                        return "Note trashed successfully";
+                    }
+                    else
+                    {
+                        return "This note does not exist. Kindly create a new one";
+                    }
+                }
+                catch (ArgumentNullException ex)
 
->>>>>>> Notes
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
     }
-}
+
