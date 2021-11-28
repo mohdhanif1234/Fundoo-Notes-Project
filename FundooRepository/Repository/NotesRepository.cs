@@ -205,34 +205,34 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
-            public string DeleteANote(int notesId)
+        public string DeleteANote(int notesId)
+        {
+            try
             {
-                try
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
+                if (validNoteId != null)
                 {
-                    var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
-                    if (validNoteId != null)
+                    validNoteId.IsTrash = true;
+                    if (validNoteId.IsNotePinned == true)
                     {
-                        validNoteId.IsTrash = true;
-                        if (validNoteId.IsNotePinned == true)
-                        {
-                            validNoteId.IsNotePinned = false;
-                            this.userContext.Notes.Update(validNoteId);
-                            this.userContext.SaveChanges();
-                            return "Note unpinned and trashed sucessfully";
-                        }
-                        return "Note trashed successfully";
+                        validNoteId.IsNotePinned = false;
+                        this.userContext.Notes.Update(validNoteId);
+                        this.userContext.SaveChanges();
+                        return "Note unpinned and trashed sucessfully";
                     }
-                    else
-                    {
-                        return "This note does not exist. Kindly create a new one";
-                    }
+                    return "Note trashed successfully";
                 }
-                catch (ArgumentNullException ex)
-
+                else
                 {
-                    throw new Exception(ex.Message);
+                    return "This note does not exist. Kindly create a new one";
                 }
             }
+            catch (ArgumentNullException ex)
+
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public string RetrieveNoteFromTrash(int notesId)
         {
             try
@@ -240,7 +240,7 @@ namespace FundooRepository.Repository
                 var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
                 if (validNoteId != null)
                 {
-                    validNoteId.IsTrash = false; 
+                    validNoteId.IsTrash = false;
                     this.userContext.Notes.Update(validNoteId);
                     this.userContext.SaveChangesAsync();
                     return "Note restored successfully";
@@ -255,6 +255,27 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string DeleteNoteFromTrash(int notesId)
+        {
+            try
+            {
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).FirstOrDefault();
+                if (validNoteId != null)
+                {
+                    this.userContext.Notes.Remove(validNoteId);
+                    this.userContext.SaveChanges();
+                    return "This note is deleted permanently";
+                }
+                else
+                {
+                    return "This note does not exist. Kindly create a new one";
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
-    }
+}
 
