@@ -276,6 +276,29 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string AddReminder(int notesId, string remindMe)
+        {
+            try
+            {
+                var validNoteId = this.userContext.Notes.Where(x => x.NoteId == notesId).SingleOrDefault();
+                if (validNoteId != null)
+                {
+                    validNoteId.RemindMe = remindMe;
+                    this.userContext.Notes.Update(validNoteId);
+                    this.userContext.SaveChanges();
+                    return "Remind me";
+                }
+                else
+                {
+                    return "This note does not exist. Kindly create a new one.";
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
 

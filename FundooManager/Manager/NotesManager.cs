@@ -116,6 +116,17 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string AddReminder(int notesId, string remindMe)
+        {
+            try
+            {
+                return this.notesRepository.AddReminder(notesId, remindMe);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }
