@@ -127,6 +127,17 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string DeleteReminder(int notesId)
+        {
+            try
+            {
+                return this.notesRepository.DeleteReminder(notesId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }
