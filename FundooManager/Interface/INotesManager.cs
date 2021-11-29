@@ -22,6 +22,7 @@ namespace FundooManager.Interface
         IEnumerable<NotesModel> GetArchiveNotes(int userId);
         IEnumerable<NotesModel> GetReminderNotes(int userId);
         IEnumerable<NotesModel> GetTrashNotes(int userId);
+        IEnumerable<NotesModel> GetAllNotes(int userId);
 
     }
 }

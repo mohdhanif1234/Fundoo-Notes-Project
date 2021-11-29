@@ -365,6 +365,22 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public IEnumerable<NotesModel> GetAllNotes(int userId) 
+        {
+            try
+            {
+                IEnumerable<NotesModel> dataFromAllNotes = (from notes in this.userContext.Notes where notes.UserId == userId && notes.IsArchive == false && notes.IsTrash == false      select notes);
+                if (dataFromAllNotes != null)
+                {
+                    return dataFromAllNotes;
+                }
+                return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
