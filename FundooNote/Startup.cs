@@ -42,6 +42,8 @@ namespace FundooNote
             services.AddTransient<INotesManager, NotesManager>();
             services.AddTransient<ICollaboratorRepository, CollaboratorRepository>();
             services.AddTransient<ICollaboratorManager, CollaboratorManager>();
+            services.AddTransient<ILabelRepository, LabelRepository>();
+            services.AddTransient<ILabelManager, LabelManager>();
             services.AddCors(options => options.AddPolicy("AllowAllHeaders", builder =>
             {
                 builder.AllowAnyOrigin()
