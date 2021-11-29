@@ -218,7 +218,7 @@ namespace FundooNote.Controllers
             try
             {
                 string result = this.notesManager.AddReminder(notesId, remindMe);
-                if (result.Equals("Remind me"))
+                if (result.Equals("Remind added successfully"))
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -251,6 +251,28 @@ namespace FundooNote.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+        [HttpGet]
+        [Route("api/getarchievednotes")]
+        public IActionResult GetArchiveNotes(int userId)
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.GetArchiveNotes(userId);
+
+                if (result.Equals(null))
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "There are no notes in the archive to be retrieved" });
+                }
+                else
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Notes retrieved successfully",Data=result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
             }
         }
     }

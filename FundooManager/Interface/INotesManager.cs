@@ -1,5 +1,6 @@
 ﻿using FundooModel;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace FundooManager.Interface
 {
@@ -18,5 +19,7 @@ namespace FundooManager.Interface
         string DeleteNoteFromTrash(int notesId);
         string AddReminder(int notesId, string remindMe);
         string DeleteReminder(int notesId);
+        IEnumerable<NotesModel> GetArchiveNotes(int userId);
+
     }
 }

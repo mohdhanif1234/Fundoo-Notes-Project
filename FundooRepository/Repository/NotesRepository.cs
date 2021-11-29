@@ -286,7 +286,7 @@ namespace FundooRepository.Repository
                     validNoteId.RemindMe = remindMe;
                     this.userContext.Notes.Update(validNoteId);
                     this.userContext.SaveChanges();
-                    return "Remind me";
+                    return "Remind added successfully";
                 }
                 else
                 {
@@ -317,7 +317,22 @@ namespace FundooRepository.Repository
                 throw new Exception(ex.Message);
             }
         }
-
+        public IEnumerable<NotesModel> GetArchiveNotes(int userId)
+        {
+            try
+            {
+                IEnumerable<NotesModel> validUserId = this.userContext.Notes.Where(x => x.UserId == userId && x.IsArchive == true);
+                if (validUserId != null)
+                {
+                    return validUserId;
+                }
+                return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
