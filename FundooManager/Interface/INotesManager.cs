@@ -20,6 +20,7 @@ namespace FundooManager.Interface
         string AddReminder(int notesId, string remindMe);
         string DeleteReminder(int notesId);
         IEnumerable<NotesModel> GetArchiveNotes(int userId);
+        IEnumerable<NotesModel> GetReminderNotes(int userId);
 
     }
 }

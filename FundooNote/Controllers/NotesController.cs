@@ -275,5 +275,28 @@ namespace FundooNote.Controllers
                 return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
             }
         }
+        [HttpGet]
+        [Route("api/getremindernotes")]
+        public IActionResult GetReminderNotes(int userId)
+        {
+            try
+            {
+                IEnumerable<NotesModel> result = this.notesManager.GetReminderNotes(userId);
+
+                if (result.Equals(null))
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Reminder not created for any of the note" });
+                }
+                else
+                {
+                    return this.Ok(new ResponseModel<IEnumerable<NotesModel>>() { Status = true, Message = "Reminder for notes retrieved successfully", Data = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
+            }
+        }
+
     }
 }
