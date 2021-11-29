@@ -7,5 +7,6 @@ namespace FundooRepository.Interface
     { 
         string AddLabelByUserId(LabelModel labelModel);
         string AddLabelByNoteId(LabelModel labelData);
+        string DeleteLabel(int userId, string labelName);
     }
 }
