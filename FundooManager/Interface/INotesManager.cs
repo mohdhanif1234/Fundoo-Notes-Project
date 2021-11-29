@@ -21,6 +21,7 @@ namespace FundooManager.Interface
         string DeleteReminder(int notesId);
         IEnumerable<NotesModel> GetArchiveNotes(int userId);
         IEnumerable<NotesModel> GetReminderNotes(int userId);
+        IEnumerable<NotesModel> GetTrashNotes(int userId);
 
     }
 }
