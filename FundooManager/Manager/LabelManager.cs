@@ -26,5 +26,16 @@ namespace FundooManager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string AddLabelByNoteId(LabelModel labelData)
+        {
+            try
+            {
+                return this.labelRepository.AddLabelByNoteId(labelData);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

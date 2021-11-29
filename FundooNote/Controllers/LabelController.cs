@@ -37,5 +37,27 @@ namespace FundooNote.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+        [HttpPost]
+        [Route("api/addlabelbynoteid")]
+        public IActionResult AddLabelByNoteId([FromBody] LabelModel labelData)
+        {
+            try
+            {
+                string result = this.labelManager.AddLabelByNoteId(labelData);
+
+                if (result.Equals("Added Label"))
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

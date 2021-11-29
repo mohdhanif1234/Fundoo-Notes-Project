@@ -4,6 +4,7 @@ namespace FundooManager.Interface
 {
     public interface ILabelManager
     {
-        string AddLabelByUserId(LabelModel labelModel);
+        string AddLabelByUserId(LabelModel labelData);
+        string AddLabelByNoteId(LabelModel labelData);
     }
 }
