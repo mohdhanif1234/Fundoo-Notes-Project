@@ -12,5 +12,6 @@ namespace FundooRepository.Interface
         string RemoveLabel(int labelId);
         string EditLabel(LabelModel labelData);
         IEnumerable<string> GetLabelByUserId(int userId);
+        IEnumerable<LabelModel> GetLabelByNoteId(int notesId);
     }
 }
