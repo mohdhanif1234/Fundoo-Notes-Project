@@ -1,4 +1,5 @@
 ﻿using FundooModel;
+using System.Collections.Generic;
 
 namespace FundooManager.Interface
 {
@@ -9,5 +10,6 @@ namespace FundooManager.Interface
         string DeleteLabel(int userId, string labelName);
         string RemoveLabel(int labelId);
         string EditLabel(LabelModel labelData);
+        IEnumerable<string> GetLabelByUserId(int userId);
     }
 }
