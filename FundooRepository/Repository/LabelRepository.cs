@@ -81,11 +81,27 @@ namespace FundooRepository.Repository
                 if (validLabel != null)
                 {
                     this.userContext.Labels.Remove(validLabel);
-                    this.userContext.SaveChangesAsync();
+                    this.userContext.SaveChanges();
                     return "Label was deleted from the note successfully";
                 }
 
                 return "There is no label present with this name";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string EditLabel(LabelModel labelData)
+        {
+            try
+            {
+                var validLabel = this.userContext.Labels.Where(x => x.LabelId == labelData.LabelId).Select(x => x.LabelName).FirstOrDefault();
+                var prevLabelname = this.userContext.Labels.Where(x => x.LabelName == validLabel).ToList();
+                prevLabelname.ForEach(x => x.LabelName = labelData.LabelName);
+                this.userContext.Labels.UpdateRange(prevLabelname);
+                this.userContext.SaveChanges();
+                return "Label updated successfully";
             }
             catch (Exception ex)
             {
