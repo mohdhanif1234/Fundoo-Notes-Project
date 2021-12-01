@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserManager.cs" company="Bridgelabz">
+// <copyright file="UserManager.cs" company="KPMG">
 //   Copyright © 2021 Company="BridgeLabz"
 // </copyright>
 // <creator name="Mohammad Hanif"/>
